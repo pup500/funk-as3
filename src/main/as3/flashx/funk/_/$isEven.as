@@ -18,12 +18,16 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
+package flashx.funk._ {
   import flashx.funk.util.ne
 
-  public function $moduloBy(value: Number): Function {
-    return function(x: Number): Number {
-      return x % value
+  public const $isEven: Function = function(x: Number): Boolean {
+    const asInt: int = int(x)
+
+    if(0 != (x - asInt)) {
+      return false
     }
+
+    return (asInt & 1) == 0
   }
 }

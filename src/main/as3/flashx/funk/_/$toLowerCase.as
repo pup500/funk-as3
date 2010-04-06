@@ -18,8 +18,8 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  public const $binaryNot: Function = function(x: *): * {
-    return ~x
+package flashx.funk._ {
+  public const $toLowerCase: Function = function(x: *): String {
+    return x is String ? String(x).toLowerCase() : ("" + x).toLowerCase()
   }
 }

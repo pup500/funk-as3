@@ -18,12 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  import flashx.funk.util.ne
+package flashx.funk._ {
+  import flashx.funk.util.eq
 
-  public function $toString(value: *): Function {
-    return function(x: *): String {
-      return "" + x
+  public function $get(property: String): Function {
+    return function(x: *): * {
+      return x[property]
     }
   }
 }

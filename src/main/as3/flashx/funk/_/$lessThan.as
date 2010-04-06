@@ -18,12 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  import flashx.funk.util.ne
+package flashx.funk._ {
+  import flashx.funk.util.eq
 
-  public function $incrementBy(value: Number): Function {
-    return function(x: Number): Number {
-      return x + value
+  public function $lessThan(value: *): Function {
+    return function(x: *): Boolean {
+      return x < value
     }
   }
 }

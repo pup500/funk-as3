@@ -18,12 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
+package flashx.funk._ {
   import flashx.funk.util.eq
 
-  public function $greaterOrEqual(value: *): Function {
+  public function $lessOrEqual(value: *): Function {
     return function(x: *): Boolean {
-      return x >= value
+      return x <= value
     }
   }
 }

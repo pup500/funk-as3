@@ -18,12 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  import flashx.funk.util.eq
+package flashx.funk._ {
+  import flashx.funk.util.ne
 
-  public function $equals(value: *): Function {
-    return function(x: *): Boolean {
-      return eq(x, value)
+  public function $incrementBy(value: Number): Function {
+    return function(x: Number): Number {
+      return x + value
     }
   }
 }

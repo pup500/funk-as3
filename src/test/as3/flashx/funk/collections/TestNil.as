@@ -19,7 +19,7 @@
  */
 
 package flashx.funk.collections {
-  import flashx.funk.$.$op
+  import flashx.funk._.$op
   import flashx.funk.IFunkObject
   import flashx.funk.closure
   import flashx.funk.error.IndexOutOfBoundsError

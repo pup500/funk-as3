@@ -18,7 +18,7 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
+package flashx.funk._ {
   import flashx.funk.util.eq
   import flashx.funk.util.ne
 

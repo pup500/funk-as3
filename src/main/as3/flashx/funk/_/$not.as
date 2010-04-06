@@ -18,12 +18,8 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  import flashx.funk.util.eq
-
-  public function $greaterThan(value: *): Function {
-    return function(x: *): Boolean {
-      return x > value
-    }
+package flashx.funk._ {
+  public const $not: Function = function(x: *): Boolean {
+    return !x
   }
 }

@@ -18,8 +18,8 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  public const $not: Function = function(x: *): Boolean {
-    return !x
+package flashx.funk._ {
+  public const $binaryNot: Function = function(x: *): * {
+    return ~x
   }
 }

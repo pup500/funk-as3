@@ -18,12 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
+package flashx.funk._ {
   import flashx.funk.util.ne
 
-  public function $divideBy(value: Number): Function {
-    return function(x: Number): Number {
-      return x / value
+  public function $toBoolean(value: *): Function {
+    return function(x: *): Boolean {
+      return x ? true : false
     }
   }
 }

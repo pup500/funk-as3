@@ -18,16 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
+package flashx.funk._ {
   import flashx.funk.util.ne
 
-  public const $isEven: Function = function(x: Number): Boolean {
-    const asInt: int = int(x)
-
-    if(0 != (x - asInt)) {
-      return false
+  public function $notEquals(value: *): Function {
+    return function(x: *): Boolean {
+      return ne(x, value)
     }
-
-    return (asInt & 1) == 0
   }
 }

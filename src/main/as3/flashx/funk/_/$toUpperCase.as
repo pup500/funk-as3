@@ -18,12 +18,8 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  import flashx.funk.util.eq
-
-  public function $get(property: String): Function {
-    return function(x: *): * {
-      return x[property]
-    }
+package flashx.funk._ {
+  public const $toUpperCase: Function = function(x: *): String {
+    return x is String ? String(x).toUpperCase() : ("" + x).toUpperCase()
   }
 }

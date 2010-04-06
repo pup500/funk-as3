@@ -18,7 +18,7 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
+package flashx.funk._ {
   import flashx.funk.util.ne
 
   public function $multiplyBy(value: Number): Function {

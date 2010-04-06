@@ -18,12 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
+package flashx.funk._ {
   import flashx.funk.util.ne
 
-  public function $notEquals(value: *): Function {
+  public function $inRange(minValue: Number, maxValue: Number): Function {
     return function(x: *): Boolean {
-      return ne(x, value)
+      return minValue <= x && x <= maxValue
     }
   }
 }

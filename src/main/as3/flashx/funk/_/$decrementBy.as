@@ -18,26 +18,12 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.$ {
-  public final class $primitive {
-    public static function string(value: String): Function {
-      return function(): String { return value }
-    }
+package flashx.funk._ {
+  import flashx.funk.util.ne
 
-    public static function bool(value: Boolean): Function {
-      return function(): Boolean { return value }
-    }
-
-    public static function integer(value: int): Function {
-      return function(): int { return value }
-    }
-
-    public static function number(value: Number): Function {
-      return function(): Number { return value }
-    }
-
-    public static function xml(value: XML): Function {
-      return function(): XML { return value }
+  public function $decrementBy(value: Number): Function {
+    return function(x: Number): Number {
+      return x - value
     }
   }
 }

@@ -19,14 +19,14 @@
  */
 
 package flashx.funk.collections.immutable {
-  import flashx.funk.$.$divideBy
-  import flashx.funk.$.$equals
-  import flashx.funk.$.$greaterThan
-  import flashx.funk.$.$isEven
-  import flashx.funk.$.$lessThan
-  import flashx.funk.$.$op
-  import flashx.funk.$.$toLowerCase
-  import flashx.funk.$.$toUpperCase
+  import flashx.funk._.$divideBy
+  import flashx.funk._.$equals
+  import flashx.funk._.$greaterThan
+  import flashx.funk._.$isEven
+  import flashx.funk._.$lessThan
+  import flashx.funk._.$op
+  import flashx.funk._.$toLowerCase
+  import flashx.funk._.$toUpperCase
   import flashx.funk.closure
   import flashx.funk.collections.IList
   import flashx.funk.collections.Range
