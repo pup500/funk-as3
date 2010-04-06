@@ -32,7 +32,12 @@ package flashx.funk.tuple {
     private var __6: *
 
     public function Tuple6Impl(_1: *, _2: *, _3: *, _4: *, _5: *, _6: *) {
-      __1 = _1, __2 = _2, __3 = _3, __4 = _4, __5 = _5, __6 = _6
+      __1 = _1
+      __2 = _2
+      __3 = _3
+      __4 = _4
+      __5 = _5
+      __6 = _6
     }
 
     public function get _1():* { return __1 }

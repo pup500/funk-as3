@@ -29,7 +29,9 @@ package flashx.funk.tuple {
     private var __3: *
 
     public function Tuple3Impl(_1: *, _2: *, _3: *) {
-      __1 = _1, __2 = _2, __3 = _3
+      __1 = _1
+      __2 = _2
+      __3 = _3
     }
 
     public function get _1():* { return __1 }

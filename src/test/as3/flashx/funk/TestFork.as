@@ -28,8 +28,9 @@ package flashx.funk {
 		public function testForkAndThenWithoutForce(): void {
 			var n: int = 0
 			var f: Function = fork(
-				function(): void {
+				function(next: Function): void {
 					assertEquals(1, ++n)
+          next()
 				}
 			).andThen(
 				function(): void {
@@ -45,8 +46,9 @@ package flashx.funk {
 		public function testForkAndThenWithForce(): void {
 			var n: int = 0
 			var f: Function = fork(
-				function(): void {
+				function(next: Function): void {
 					assertEquals(1, ++n)
+          next()
 				}, null, null, true
 			).andThen(
 				function(): void {
@@ -62,9 +64,9 @@ package flashx.funk {
 		public function testForkAndContinueWithoutForce(): void {
 			var n: int = 0;
 			var f: Function = fork(
-				function(): int {
+				function(next: Function): void {
 					assertEquals(1, ++n)
-					return n
+					next(n)
 				}
 			).andContinue(function(x: int): void {
 				assertEquals(n, x)
@@ -74,6 +76,23 @@ package flashx.funk {
 			assertEquals(0, n)
 			f()
 			assertEquals(2, n)
+		}
+
+    public function testForkAndContinueWithForce(): void {
+			var n: int = 0;
+			var f: Function = fork(
+				function(next: Function): void {
+					assertEquals(1, ++n)
+					next(n)
+				}, null, null, true
+			).andContinue(function(x: int): void {
+				assertEquals(n, x)
+				assertEquals(2, ++n)
+			})
+
+			assertEquals(0, n)
+			f()
+			assertEquals(0, n)
 		}
 	}
 }

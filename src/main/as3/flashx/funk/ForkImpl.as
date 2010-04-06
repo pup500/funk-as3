@@ -49,33 +49,39 @@ package flashx.funk {
 		}
 
 		public function andThen(f: Function, thisArg: * = null, argArray: Array = null): Function {
+      const inner: Function = function(): void { f.apply(thisArg, argArray) }
+
 			if(_force) {
 				return function(): void {
 					setTimeout(
 							function(): void {
-								_f.apply(_thisArg, _argArray)
-								f.apply(thisArg, argArray)
+								_f.apply(_thisArg,
+                 _argArray == null ? [inner] : _argArray.unshift(inner)
+                )
 							}, 0)
 				}
 			} else {
 				return function(): void {
-					_f.apply(_thisArg, _argArray)
-					f.apply(thisArg, argArray)
+					_f.apply(_thisArg, _argArray == null ? [inner] : _argArray.unshift(inner))
 				}
 			}
 		}
 
 		public function andContinue(f: Function): Function {
+      const inner: Function = function(... rest): void { f.apply(_thisArg, rest) }
+
 			if(_force) {
 				return function(): void {
 					setTimeout(
 							function(): void {
-								f.apply(_thisArg, [_f.apply(_thisArg, _argArray)])
+								_f.apply(_thisArg,
+                 _argArray == null ? [inner] : _argArray.unshift(inner)
+                )
 							}, 0)
 				}
 			} else {
 				return function(): void {
-					f.apply(_thisArg, [_f.apply(_thisArg, _argArray)])
+					_f.apply(_thisArg, _argArray == null ? [inner] : _argArray.unshift(inner))
 				}
 			}
 		}

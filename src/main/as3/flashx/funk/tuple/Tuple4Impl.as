@@ -30,7 +30,10 @@ package flashx.funk.tuple {
     private var __4: *
 
     public function Tuple4Impl(_1: *, _2: *, _3: *, _4: *) {
-      __1 = _1, __2 = _2, __3 = _3, __4 = _4
+      __1 = _1
+      __2 = _2
+      __3 = _3
+      __4 = _4
     }
 
     public function get _1():* { return __1 }

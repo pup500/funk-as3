@@ -31,7 +31,11 @@ package flashx.funk.tuple {
     private var __5: *
 
     public function Tuple5Impl(_1: *, _2: *, _3: *, _4: *, _5: *) {
-      __1 = _1, __2 = _2, __3 = _3, __4 = _4, __5 = _5
+      __1 = _1
+      __2 = _2
+      __3 = _3
+      __4 = _4
+      __5 = _5
     }
 
     public function get _1():* { return __1 }
