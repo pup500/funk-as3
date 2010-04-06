@@ -18,8 +18,14 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk._ {
-  public final class $primitive {
+package flashx.funk {
+  import flashx.funk.util.isAbstract
+
+  public final class pass {
+    public static function any(value: *): Function {
+      return function(): * { return value }
+    }
+
     public static function string(value: String): Function {
       return function(): String { return value }
     }
@@ -32,6 +38,10 @@ package flashx.funk._ {
       return function(): int { return value }
     }
 
+    public static function unsignedInteger(value: uint): Function {
+      return function(): uint { return value }
+    }
+
     public static function number(value: Number): Function {
       return function(): Number { return value }
     }
@@ -39,5 +49,19 @@ package flashx.funk._ {
     public static function xml(value: XML): Function {
       return function(): XML { return value }
     }
+
+    public static function object(object: Object): Function {
+      return function(): Object { return object }
+    }
+
+    public static function instanceOf(klass: Class): Function {
+      return function(): Object { return new klass }
+    }
+
+    public static function klass(klass: Class): Class {
+      return function(): Class { return klass }
+    }
+
+    public function pass() { isAbstract() }
   }
 }

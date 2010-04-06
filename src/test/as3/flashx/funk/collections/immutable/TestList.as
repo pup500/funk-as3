@@ -19,14 +19,7 @@
  */
 
 package flashx.funk.collections.immutable {
-  import flashx.funk._.$divideBy
-  import flashx.funk._.$equals
-  import flashx.funk._.$greaterThan
-  import flashx.funk._.$isEven
-  import flashx.funk._.$lessThan
-  import flashx.funk._.$op
-  import flashx.funk._.$toLowerCase
-  import flashx.funk._.$toUpperCase
+  import flashx.funk._
   import flashx.funk.closure
   import flashx.funk.collections.IList
   import flashx.funk.collections.Range
@@ -34,15 +27,12 @@ package flashx.funk.collections.immutable {
   import flashx.funk.collections.nil
   import flashx.funk.collections.toList
   import flashx.funk.error.IndexOutOfBoundsError
-  import flashx.funk.error.NoSuchElementError
-  import flashx.funk.test.identity
   import flashx.funk.option.none
   import flashx.funk.option.some
   import flashx.funk.test.assertThrows
-  import flashx.funk.tuple.ITuple2
   import flashx.funk.test.mapFalse
   import flashx.funk.test.mapTrue
-
+  import flashx.funk.tuple.ITuple2
   import flashx.funk.tuple.tuple2
 
   import flexunit.framework.TestCase
@@ -56,10 +46,10 @@ package flashx.funk.collections.immutable {
     }
 
     public function testCount(): void {
-      assertEquals(5, list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).count($isEven))
-      assertEquals(5, Range.to(1, 10).count($isEven))
-      assertEquals(0, Range.to(1, 10).count($greaterThan(10)))
-      assertEquals(1, Range.to(1, 10).count($equals(10)))
+      assertEquals(5, list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).count(_.isEven))
+      assertEquals(5, Range.to(1, 10).count(_.isEven))
+      assertEquals(0, Range.to(1, 10).count(_.greaterThan(10)))
+      assertEquals(1, Range.to(1, 10).count(_.equals(10)))
     }
 
     public function testNotEmpty(): void {
@@ -94,49 +84,45 @@ package flashx.funk.collections.immutable {
 
     public function testExists(): void {
       assertTrue(list(1).exists(mapTrue))
-      assertTrue(Range.to(1, 10).exists($equals(5)))
-      assertFalse(Range.to(1, 10).exists($equals(0)))
+      assertTrue(Range.to(1, 10).exists(_.equals(5)))
+      assertFalse(Range.to(1, 10).exists(_.equals(0)))
     }
 
     public function testFilter(): void {
       const l: IList = list(1, 2, 3)
       assertStrictlyEquals(l, l.filter(mapTrue))
-      assertTrue(list(2, 4, 6, 8, 10).equals(Range.to(1, 10).filter($isEven)))
+      assertTrue(list(2, 4, 6, 8, 10).equals(Range.to(1, 10).filter(_.isEven)))
     }
 
     public function testFilterNot(): void {
       const l: IList = list(1, some(2), 1, some(2))
-      const l0: int = l.size
-      assertEquals(l.size - 2, l.filterNot($equals(some(2))).size)
+      assertEquals(l.size - 2, l.filterNot(_.equals(some(2))).size)
       assertEquals(l.size, l.filterNot(mapFalse).size)
       assertStrictlyEquals(nil, l.filterNot(mapTrue))
     }
 
     public function testFind(): void {
-      assertTrue(some(some(2)).equals(Range.to(1, 10).map(closure(some)).find($equals(some(2)))))
-      assertStrictlyEquals(none, Range.to(1, 10).map(closure(some)).find($equals(some(11))))
-      assertStrictlyEquals(none, Range.to(1, 10).map(closure(some)).find($equals(none)))
+      assertTrue(some(some(2)).equals(Range.to(1, 10).map(closure(some)).find(_.equals(some(2)))))
+      assertStrictlyEquals(none, Range.to(1, 10).map(closure(some)).find(_.equals(some(11))))
+      assertStrictlyEquals(none, Range.to(1, 10).map(closure(some)).find(_.equals(none)))
     }
 
     public function testFindIndexOf(): void {
-      assertEquals(2, list(0, 1, 2).findIndexOf($equals(2)))
-      assertEquals(-1, list(0, 1, 2).findIndexOf($equals(3)))
+      assertEquals(2, list(0, 1, 2).findIndexOf(_.equals(2)))
+      assertEquals(-1, list(0, 1, 2).findIndexOf(_.equals(3)))
     }
 
     public function testFlatMap(): void {
-      assertTrue(list("a","b","c","d").equals(list("a","b","c","d").flatMap(toList)))
-      assertTrue(list(1, 3).equals(list(1, 2, 3).flatMap(
-          function(x: int): IList {
-            return x == 2 ? nil : list(x)
-          }
-        )
-      ))
+      assertTrue(list("a", "b", "c", "d").equals(list("a", "b", "c", "d").flatMap(toList)))
+      assertTrue(list(1, 3).equals(list(1, 2, 3).flatMap(function(x: int): IList {
+        return x == 2 ? nil : list(x)
+      })))
 
-      assertThrows(
-        function(): void {
-          list(1, 2, 3).flatMap(function(): Object { return {} })
-        }, TypeError
-      )
+      assertThrows(function(): void {
+        list(1, 2, 3).flatMap(function(): Object {
+          return {}
+        })
+      }, TypeError)
     }
 
     public function testFlatten(): void {
@@ -145,34 +131,32 @@ package flashx.funk.collections.immutable {
 
     public function testFoldLeft(): void {
       const n: int = 100
-      assertEquals(n*(n+1)/2, Range.to(1, n).foldLeft(0, $op.add))
-      assertEquals((n+1)*((n+1)+1)/2, Range.to(1, n+1).foldLeft(0, $op.add))
-      assertEquals("#"+"TEST".toLowerCase(), toList("TEST").map($toLowerCase).foldLeft("#", $op.add))
+      assertEquals(n * (n + 1) / 2, Range.to(1, n).foldLeft(0, _.plus_))
+      assertEquals((n + 1) * ((n + 1) + 1) / 2, Range.to(1, n + 1).foldLeft(0, _.plus_))
+      assertEquals("#" + "TEST".toLowerCase(), toList("TEST").map(_.toLowerCase).foldLeft("#", _.plus_))
     }
 
     public function testFoldRight(): void {
       const n: int = 100
-      assertEquals(n*(n+1)/2, Range.to(1, n).foldRight(0, $op.add))
-      assertEquals((n+1)*((n+1)+1)/2, Range.to(1, n+1).foldRight(0, $op.add))
-      assertEquals("#"+"test".toUpperCase(), toList("tset").map($toUpperCase).foldRight("#", $op.add))
+      assertEquals(n * (n + 1) / 2, Range.to(1, n).foldRight(0, _.plus_))
+      assertEquals((n + 1) * ((n + 1) + 1) / 2, Range.to(1, n + 1).foldRight(0, _.plus_))
+      assertEquals("#" + "test".toUpperCase(), toList("tset").map(_.toUpperCase).foldRight("#", _.plus_))
     }
 
     public function testForall(): void {
       assertTrue(Range.to(1, 10).forall(mapTrue))
       assertFalse(Range.to(1, 10).forall(mapFalse))
-      assertTrue(Range.to(1, 10).forall($lessThan(11)))
-      assertFalse(Range.to(1, 10).forall($lessThan(10)))
+      assertTrue(Range.to(1, 10).forall(_.lessThan(11)))
+      assertFalse(Range.to(1, 10).forall(_.lessThan(10)))
     }
 
     public function testForeach(): void {
       const n: int = 10
       var i: int = 0
 
-      Range.until(0, n).foreach(
-          function(x: int): void {
-            assertEquals(i++, x)
-          }
-      )
+      Range.until(0, n).foreach(function(x: int): void {
+        assertEquals(i++, x)
+      })
 
       assertEquals(i, n)
     }
@@ -180,11 +164,9 @@ package flashx.funk.collections.immutable {
     public function testGet(): void {
       assertTrue(Range.until(0, 10).equals(Range.until(0, 10)))
 
-      Range.until(0, 10).zipWithIndex.foreach(
-        function(x: ITuple2): void {
-          assertEquals(x._1, Range.until(0, 10).get(x._2))
-        }
-      )
+      Range.until(0, 10).zipWithIndex.foreach(function(x: ITuple2): void {
+        assertEquals(x._1, Range.until(0, 10).get(x._2))
+      })
 
       assertThrows(closure(Range.until(0, 10).get, -1), IndexOutOfBoundsError)
       assertThrows(closure(Range.until(0, 10).get, 10), IndexOutOfBoundsError)
@@ -193,14 +175,14 @@ package flashx.funk.collections.immutable {
     public function testHead(): void {
       const value: Object = {}
       assertStrictlyEquals(value, list(value, 2, 3).head)
-      assertEquals(1, list(1,2,3).head)
+      assertEquals(1, list(1, 2, 3).head)
       assertUndefined(list(undefined, 2, 3).head)
     }
 
     public function testHeadOption(): void {
       const value: Object = {}
       assertStrictlyEquals(value, list(value, 2, 3).headOption.get)
-      assertEquals(1, list(1,2,3).headOption.get)
+      assertEquals(1, list(1, 2, 3).headOption.get)
       assertUndefined(list(undefined, 2, 3).headOption.get)
     }
 
@@ -217,9 +199,9 @@ package flashx.funk.collections.immutable {
     }
 
     public function testInit(): void {
-      const l: IList = list(1,2,3)
+      const l: IList = list(1, 2, 3)
       assertEquals(l.size - 1, l.init.size)
-      assertEquals("tes", toList("test").init.reduceLeft($op.add))
+      assertEquals("tes", toList("test").init.reduceLeft(_.plus_))
     }
 
     public function testIsEmpty(): void {
@@ -233,18 +215,18 @@ package flashx.funk.collections.immutable {
 
     public function testMap(): void {
       const l: IList = list(2, 4, 6, 8)
-      assertEquals(l.reduceLeft($op.add) / 2, l.map($divideBy(2)).reduceLeft($op.add))
+      assertEquals(l.reduceLeft(_.plus_) / 2, l.map(_.divideBy(2)).reduceLeft(_.plus_))
     }
 
     public function testPartition(): void {
       const l: IList = Range.to(1, 10)
-      const p: ITuple2 = l.partition($isEven)
+      const p: ITuple2 = l.partition(_.isEven)
       assertTrue(p._1 is IList)
       assertTrue(p._2 is IList)
       assertEquals(5, p._1.size)
       assertEquals(5, p._2.size)
-      assertTrue(l.filter($isEven).equals(p._1))
-      assertTrue(l.filterNot($isEven).equals(p._2))
+      assertTrue(l.filter(_.isEven).equals(p._1))
+      assertTrue(l.filterNot(_.isEven).equals(p._2))
     }
 
     public function testPrepend(): void {
@@ -265,27 +247,27 @@ package flashx.funk.collections.immutable {
 
     public function testReduceLeft(): void {
       const n: int = 100
-      assertEquals(n*(n+1)/2, Range.to(1, n).reduceLeft($op.add))
-      assertEquals((n+1)*((n+1)+1)/2, Range.to(1, n+1).reduceLeft($op.add))
-      assertEquals("TEST".toLowerCase(), toList("TEST").map($toLowerCase).reduceLeft($op.add))
+      assertEquals(n * (n + 1) / 2, Range.to(1, n).reduceLeft(_.plus_))
+      assertEquals((n + 1) * ((n + 1) + 1) / 2, Range.to(1, n + 1).reduceLeft(_.plus_))
+      assertEquals("TEST".toLowerCase(), toList("TEST").map(_.toLowerCase).reduceLeft(_.plus_))
     }
 
     public function testReduceRight(): void {
       const n: int = 100
-      assertEquals(n*(n+1)/2, Range.to(1, n).reduceRight($op.add))
-      assertEquals((n+1)*((n+1)+1)/2, Range.to(1, n+1).reduceRight($op.add))
-      assertEquals("test".toUpperCase(), toList("tset").map($toUpperCase).reduceRight($op.add))
+      assertEquals(n * (n + 1) / 2, Range.to(1, n).reduceRight(_.plus_))
+      assertEquals((n + 1) * ((n + 1) + 1) / 2, Range.to(1, n + 1).reduceRight(_.plus_))
+      assertEquals("test".toUpperCase(), toList("tset").map(_.toUpperCase).reduceRight(_.plus_))
     }
 
     public function testReverse(): void {
       assertTrue(toList("ogeniederherrehredeinego").equals(toList("ogeniederherrehredeinego").reverse))
-      assertTrue(list(5,4,3,2,1).equals(list(1,2,3,4,5).reverse))
+      assertTrue(list(5, 4, 3, 2, 1).equals(list(1, 2, 3, 4, 5).reverse))
     }
 
     public function testTail(): void {
       assertTrue(list(1).tail.isEmpty)
-      assertFalse(list(1,2).tail.isEmpty)
-      assertTrue(list(2).equals(list(1,2).tail))
+      assertFalse(list(1, 2).tail.isEmpty)
+      assertTrue(list(2).equals(list(1, 2).tail))
     }
 
     public function testTailOption(): void {
@@ -295,14 +277,14 @@ package flashx.funk.collections.immutable {
 
     public function testTake(): void {
       assertThrows(closure(list(1).take, -1), ArgumentError)
-			assertTrue(list(true).take(1).head)
-			assertTrue(list(true,false).equals(list(true,false,false,false).take(2)))
+      assertTrue(list(true).take(1).head)
+      assertTrue(list(true, false).equals(list(true, false, false, false).take(2)))
     }
 
     public function takeRight(): void {
       assertThrows(closure(list(1).takeRight, -1), ArgumentError)
-			assertTrue(list(true).takeRight(1).head)
-			assertTrue(list(true,false).equals(list(false,false,true,false).takeRight(2)))
+      assertTrue(list(true).takeRight(1).head)
+      assertTrue(list(true, false).equals(list(false, false, true, false).takeRight(2)))
     }
 
     public function testTakeWhile(): void {
@@ -311,45 +293,21 @@ package flashx.funk.collections.immutable {
     }
 
     public function testZip(): void {
-      assertTrue(
-        list(
-          tuple2(1,1), tuple2(2,2), tuple2(3,3)
-        ).equals(
-          Range.to(1,3).zip(Range.to(1,3))
-        )
-      )
+      assertTrue(list(tuple2(1, 1), tuple2(2, 2), tuple2(3, 3)).equals(Range.to(1, 3).zip(Range.to(1, 3))))
 
-      assertTrue(
-        list(
-          tuple2(1,1), tuple2(2,2), tuple2(3,3)
-        ).equals(
-          Range.to(1,4).zip(Range.to(1,3))
-        )
-      )
+      assertTrue(list(tuple2(1, 1), tuple2(2, 2), tuple2(3, 3)).equals(Range.to(1, 4).zip(Range.to(1, 3))))
 
-      assertTrue(
-        list(
-          tuple2(1,1), tuple2(2,2), tuple2(3,3)
-        ).equals(
-          Range.to(1,3).zip(Range.to(1,4))    
-        )
-      )
+      assertTrue(list(tuple2(1, 1), tuple2(2, 2), tuple2(3, 3)).equals(Range.to(1, 3).zip(Range.to(1, 4))))
     }
 
     public function testZipWithIndex(): void {
-      assertTrue(
-        list(
-          tuple2(1,0), tuple2(2,1), tuple2(3,2)
-        ).equals(
-          Range.to(1,3).zipWithIndex
-        )
-      )
+      assertTrue(list(tuple2(1, 0), tuple2(2, 1), tuple2(3, 2)).equals(Range.to(1, 3).zipWithIndex))
     }
 
     public function testProductArity(): void {
       const n: int = 10
-      assertEquals(Range.to(1,n).size, Range.to(1,n).productArity)
-      assertEquals(Range.to(1,n+1).size, Range.to(1,n+1).productArity)
+      assertEquals(Range.to(1, n).size, Range.to(1, n).productArity)
+      assertEquals(Range.to(1, n + 1).size, Range.to(1, n + 1).productArity)
     }
 
     public function testProductElement(): void {
@@ -364,7 +322,7 @@ package flashx.funk.collections.immutable {
     }
 
     public function testMkString(): void {
-      assertEquals("1, 2, 3", list(1,2,3).mkString(", "))
+      assertEquals("1, 2, 3", list(1, 2, 3).mkString(", "))
     }
 
     public function testEquals(): void {
@@ -378,8 +336,8 @@ package flashx.funk.collections.immutable {
     public function testSize(): void {
       const n: int = 10
       assertEquals(0, list().size)
-      assertEquals(n, Range.to(1,n).size)
-      assertEquals(n+1, Range.to(1,n+1).size)
+      assertEquals(n, Range.to(1, n).size)
+      assertEquals(n + 1, Range.to(1, n + 1).size)
     }
 
     public function testHasDefinedSize(): void {
@@ -390,32 +348,32 @@ package flashx.funk.collections.immutable {
     public function testToArray(): void {
       const n: int = 10
       assertEquals(0, list().toArray.length)
-      assertEquals(n, Range.to(1,n).toArray.length)
-      assertEquals(n+1, Range.to(1,n+1).toArray.length)
-      assertEquals(1, list(1,2,3).toArray[0])
-      assertEquals(2, list(1,2,3).toArray[1])
-      assertEquals(3, list(1,2,3).toArray[2])
+      assertEquals(n, Range.to(1, n).toArray.length)
+      assertEquals(n + 1, Range.to(1, n + 1).toArray.length)
+      assertEquals(1, list(1, 2, 3).toArray[0])
+      assertEquals(2, list(1, 2, 3).toArray[1])
+      assertEquals(3, list(1, 2, 3).toArray[2])
     }
 
     public function testToVector(): void {
       const n: int = 10
       assertEquals(0, list().toVector.length)
-      assertEquals(n, Range.to(1,n).toVector.length)
-      assertEquals(n+1, Range.to(1,n+1).toVector.length)
-      assertEquals(1, list(1,2,3).toVector[0])
-      assertEquals(2, list(1,2,3).toVector[1])
-      assertEquals(3, list(1,2,3).toVector[2])
+      assertEquals(n, Range.to(1, n).toVector.length)
+      assertEquals(n + 1, Range.to(1, n + 1).toVector.length)
+      assertEquals(1, list(1, 2, 3).toVector[0])
+      assertEquals(2, list(1, 2, 3).toVector[1])
+      assertEquals(3, list(1, 2, 3).toVector[2])
     }
 
     public function testToFixedVector(): void {
       const n: int = 10
       assertEquals(0, list().toFixedVector.length)
-      assertEquals(n, Range.to(1,n).toFixedVector.length)
-      assertEquals(n+1, Range.to(1,n+1).toFixedVector.length)
-      assertEquals(1, list(1,2,3).toFixedVector[0])
-      assertEquals(2, list(1,2,3).toFixedVector[1])
-      assertEquals(3, list(1,2,3).toFixedVector[2])
-      assertTrue(list(1,2,3).toFixedVector.fixed)
+      assertEquals(n, Range.to(1, n).toFixedVector.length)
+      assertEquals(n + 1, Range.to(1, n + 1).toFixedVector.length)
+      assertEquals(1, list(1, 2, 3).toFixedVector[0])
+      assertEquals(2, list(1, 2, 3).toFixedVector[1])
+      assertEquals(3, list(1, 2, 3).toFixedVector[2])
+      assertTrue(list(1, 2, 3).toFixedVector.fixed)
     }
   }
 }

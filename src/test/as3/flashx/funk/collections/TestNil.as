@@ -19,19 +19,13 @@
  */
 
 package flashx.funk.collections {
-  import flashx.funk._.$op
-  import flashx.funk.IFunkObject
+  import flashx.funk._
   import flashx.funk.closure
   import flashx.funk.error.IndexOutOfBoundsError
   import flashx.funk.error.NoSuchElementError
-  import flashx.funk.test.identity
-  import flashx.funk.option.IOption
-
   import flashx.funk.option.none
   import flashx.funk.test.assertThrows
-  import flashx.funk.tuple.ITuple2
-
-  import flashx.funk.tuple.tuple2
+  import flashx.funk.test.identity
   import flashx.funk.test.mapFalse
   import flashx.funk.test.mapTrue
 
@@ -44,19 +38,17 @@ package flashx.funk.collections {
     }
 
     public function testCount(): void {
-      nil.count(
-        function(): Boolean {
-          fail("Count function must not be called.")
-          return true
-        }
-      )
+      nil.count(function(): Boolean {
+        fail("Count function must not be called.")
+        return true
+      })
     }
 
     public function testNotEmpty(): void {
       assertFalse(nil.notEmpty)
     }
 
-    public function testDrop(): void{
+    public function testDrop(): void {
       assertStrictlyEquals(nil, nil.drop(0))
       assertThrows(closure(nil.drop, -1), ArgumentError)
     }
@@ -68,72 +60,58 @@ package flashx.funk.collections {
 
     public function testDropWhile(): void {
       assertStrictlyEquals(nil, nil.dropWhile(mapTrue))
-      nil.dropWhile(
-          function(x: *): Boolean {
-            fail("DropWhile function must not be called.")
-            return true
-          }
-      )
+      nil.dropWhile(function(x: *): Boolean {
+        fail("DropWhile function must not be called.")
+        return true
+      })
     }
 
     public function testExists(): void {
       assertFalse(nil, nil.exists(mapTrue))
-      nil.exists(
-          function(x: *): Boolean {
-            fail("Exists function must not be called.")
-            return true
-          }
-      )
+      nil.exists(function(x: *): Boolean {
+        fail("Exists function must not be called.")
+        return true
+      })
     }
 
     public function testFilter(): void {
       assertStrictlyEquals(nil, nil.filter(mapTrue))
-      nil.filter(
-          function(x: *): Boolean {
-            fail("Filter function must not be called.")
-            return true
-          }
-      )
+      nil.filter(function(x: *): Boolean {
+        fail("Filter function must not be called.")
+        return true
+      })
     }
 
     public function testFilterNot(): void {
       assertStrictlyEquals(nil, nil.filter(mapFalse))
-      nil.filterNot(
-          function(x: *): Boolean {
-            fail("FilterNot function must not be called.")
-            return true
-          }
-      )
+      nil.filterNot(function(x: *): Boolean {
+        fail("FilterNot function must not be called.")
+        return true
+      })
     }
 
     public function testFind(): void {
       assertStrictlyEquals(none, nil.find(mapTrue))
-      nil.find(
-          function(x: *): Boolean {
-            fail("Find function must not be called.")
-            return true
-          }
-      )
+      nil.find(function(x: *): Boolean {
+        fail("Find function must not be called.")
+        return true
+      })
     }
 
     public function testFindIndexOf(): void {
       assertEquals(-1, nil.findIndexOf(mapTrue))
-      nil.findIndexOf(
-          function(x: *): Boolean {
-            fail("FindIndexOf function must not be called.")
-            return true
-          }
-      )
+      nil.findIndexOf(function(x: *): Boolean {
+        fail("FindIndexOf function must not be called.")
+        return true
+      })
     }
 
     public function testFlatMap(): void {
       assertStrictlyEquals(nil, nil.flatMap(identity))
-      nil.flatMap(
-          function(x: *): IList {
-            fail("FlatMap function must not be called.")
-            return nil
-          }
-      )
+      nil.flatMap(function(x: *): IList {
+        fail("FlatMap function must not be called.")
+        return nil
+      })
     }
 
     public function testFlatten(): void {
@@ -141,41 +119,33 @@ package flashx.funk.collections {
     }
 
     public function testFoldLeft(): void {
-      assertEquals(0, nil.foldLeft(0, $op.add))
-      nil.foldLeft(0,
-          function(x: int, y: int): int {
-            fail("FoldLeft function must not be called.")
-            return x + y
-          }
-      )
+      assertEquals(0, nil.foldLeft(0, _.plus_))
+      nil.foldLeft(0, function(x: int, y: int): int {
+        fail("FoldLeft function must not be called.")
+        return x + y
+      })
     }
 
     public function testFoldRight(): void {
-      assertEquals(0, nil.foldRight(0, $op.add))
-      nil.foldRight(0,
-          function(x: int, y: int): int {
-            fail("FoldRight function must not be called.")
-            return x + y
-          }
-      )
+      assertEquals(0, nil.foldRight(0, _.plus_))
+      nil.foldRight(0, function(x: int, y: int): int {
+        fail("FoldRight function must not be called.")
+        return x + y
+      })
     }
 
     public function testForall(): void {
       assertFalse(nil.forall(mapTrue))
-      nil.forall(
-          function(x: *): Boolean {
-            fail("Forall function must not be called.")
-            return true
-          }
-      )
+      nil.forall(function(x: *): Boolean {
+        fail("Forall function must not be called.")
+        return true
+      })
     }
 
     public function testForeach(): void {
-      nil.foreach(
-          function(x: *): void {
-            fail("Foreach function must not be called.")
-          }
-      )
+      nil.foreach(function(x: *): void {
+        fail("Foreach function must not be called.")
+      })
     }
 
     public function testGet(): void {
@@ -183,7 +153,9 @@ package flashx.funk.collections {
     }
 
     public function testHead(): void {
-      assertThrows(function(): * { return nil.head }, NoSuchElementError)
+      assertThrows(function(): * {
+        return nil.head
+      }, NoSuchElementError)
     }
 
     public function testHeadOption(): void {
@@ -207,28 +179,26 @@ package flashx.funk.collections {
     }
 
     public function testLast(): void {
-      assertThrows(function(): * { return nil.head }, NoSuchElementError)
+      assertThrows(function(): * {
+        return nil.head
+      }, NoSuchElementError)
     }
 
     public function testMap(): void {
       assertStrictlyEquals(nil, nil.map(mapTrue))
-      nil.map(
-          function(x: *): Boolean {
-            fail("Map function must not be called.")
-            return true
-          }
-      )
+      nil.map(function(x: *): Boolean {
+        fail("Map function must not be called.")
+        return true
+      })
     }
 
     public function testPartition(): void {
       assertStrictlyEquals(nil, nil.partition(mapTrue)._1)
       assertStrictlyEquals(nil, nil.partition(mapTrue)._2)
-      nil.partition(
-          function(x: *): Boolean {
-            fail("Partition function must not be called.")
-            return true
-          }
-      )
+      nil.partition(function(x: *): Boolean {
+        fail("Partition function must not be called.")
+        return true
+      })
     }
 
     public function testPrepend(): void {
@@ -248,26 +218,28 @@ package flashx.funk.collections {
     }
 
     public function testReduceLeft(): void {
-      assertUndefined(nil.reduceLeft($op.add))
+      assertUndefined(nil.reduceLeft(_.plus_))
     }
 
     public function testReduceRight(): void {
-      assertUndefined(nil.reduceLeft($op.add))
+      assertUndefined(nil.reduceLeft(_.plus_))
     }
 
     public function testReverse(): void {
       assertStrictlyEquals(nil, nil.reverse)
     }
 
-    public function  testTail(): void {
-      assertThrows(function(): * { return nil.tail }, NoSuchElementError)
+    public function testTail(): void {
+      assertThrows(function(): * {
+        return nil.tail
+      }, NoSuchElementError)
     }
 
     public function testTailOption(): void {
       assertStrictlyEquals(none, nil.tailOption)
     }
 
-    public function testTake(): void{
+    public function testTake(): void {
       assertStrictlyEquals(nil, nil.take(0))
       assertThrows(closure(nil.take, -1), ArgumentError)
     }
@@ -279,12 +251,10 @@ package flashx.funk.collections {
 
     public function testTakeWhile(): void {
       assertStrictlyEquals(nil, nil.takeWhile(mapTrue))
-      nil.takeWhile(
-          function(x: *): Boolean {
-            fail("TakeWhile function must not be called.")
-            return true
-          }
-      )
+      nil.takeWhile(function(x: *): Boolean {
+        fail("TakeWhile function must not be called.")
+        return true
+      })
     }
 
     public function testZip(): void {
@@ -300,7 +270,7 @@ package flashx.funk.collections {
     }
 
     public function testProductElement(): void {
-      assertThrows(closure(nil.productElement,  0), IndexOutOfBoundsError)
+      assertThrows(closure(nil.productElement, 0), IndexOutOfBoundsError)
     }
 
     public function testProductPrefix(): void {
