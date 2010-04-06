@@ -52,7 +52,7 @@ package flashx.funk {
       const inner: Function = function(): void { f.apply(thisArg, argArray) }
 
 			if(_force) {
-				return function(): void {
+				return function(... rest): void {
 					setTimeout(
 							function(): void {
 								_f.apply(_thisArg,
@@ -61,7 +61,7 @@ package flashx.funk {
 							}, 0)
 				}
 			} else {
-				return function(): void {
+				return function(... rest): void {
 					_f.apply(_thisArg, _argArray == null ? [inner] : _argArray.unshift(inner))
 				}
 			}
@@ -71,7 +71,7 @@ package flashx.funk {
       const inner: Function = function(... rest): void { f.apply(_thisArg, rest) }
 
 			if(_force) {
-				return function(): void {
+				return function(... rest): void {
 					setTimeout(
 							function(): void {
 								_f.apply(_thisArg,
@@ -80,7 +80,7 @@ package flashx.funk {
 							}, 0)
 				}
 			} else {
-				return function(): void {
+				return function(... rest): void {
 					_f.apply(_thisArg, _argArray == null ? [inner] : _argArray.unshift(inner))
 				}
 			}
