@@ -67,6 +67,17 @@ package flashx.funk {
       assertUndefined(_.get("unknown")(a))
     }
 
+    public function testImplicitGet(): void {
+      const a: Object = { property: 1 }
+      assertEquals(1, (_.property)(a))
+      assertUndefined((_.unknown)(a))
+    }
+
+    public function testImplicitCall(): void {
+      const a: Object = { callMe: function(p0: int,  p1: int): int { return p0 + p1 } }
+      assertEquals(3, _.callMe(1,2)(a))
+    }
+
     public function testGreaterEqual(): void {
       assertTrue(_.greaterEqual(5)(6))
       assertTrue(_.greaterEqual(5)(5))
