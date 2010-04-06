@@ -24,7 +24,7 @@ package flashx.funk.$ {
       return function(): String { return value }
     }
 
-    public static function boolean(value: Boolean): Function {
+    public static function bool(value: Boolean): Function {
       return function(): Boolean { return value }
     }
 
