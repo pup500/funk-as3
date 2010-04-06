@@ -733,8 +733,12 @@ package flashx.funk.collections.immutable {
         }
       }
 
-      var m: int = n - 1
+      const m: int = n - 1
 
+      if(m <= 0) {
+        return nil
+      }
+      
       buffer[m]._tail = nil
 
       for(i = 0, j = 1; i < m; ++i, ++j) {

@@ -43,6 +43,8 @@ package flashx.funk.collections.immutable {
   import flashx.funk.test.mapFalse
   import flashx.funk.test.mapTrue
 
+  import flashx.funk.tuple.tuple2
+
   import flexunit.framework.TestCase
 
   public class TestList extends TestCase {
@@ -287,8 +289,8 @@ package flashx.funk.collections.immutable {
     }
 
     public function testTailOption(): void {
-      assertTrue(some(nil), list(1).tail)
-      assertTrue(some(list(2)).equals(list(1, 2).tail))
+      assertTrue(some(nil), list(1).tailOption)
+      assertTrue(some(list(2)).equals(list(1, 2).tailOption))
     }
 
     public function testTake(): void {
@@ -298,69 +300,122 @@ package flashx.funk.collections.immutable {
     }
 
     public function takeRight(): void {
-      assertStrictlyEquals(nil, nil.takeRight(0))
-      assertThrows(closure(nil.takeRight, -1), ArgumentError)
+      assertThrows(closure(list(1).takeRight, -1), ArgumentError)
+			assertTrue(list(true).takeRight(1).head)
+			assertTrue(list(true,false).equals(list(false,false,true,false).takeRight(2)))
     }
 
     public function testTakeWhile(): void {
-      assertStrictlyEquals(nil, nil.takeWhile(mapTrue))
-      nil.takeWhile(function(x: *): Boolean {
-        fail("TakeWhile function must not be called.")
-        return true
-      })
+      assertTrue(list(true, true, true).equals(list(true, true, true).takeWhile(mapTrue)))
+      assertTrue(nil.equals(list(true, true, true).takeWhile(mapFalse)))
     }
 
     public function testZip(): void {
-      assertStrictlyEquals(nil, nil.zip(Range.until(0, 10)))
+      assertTrue(
+        list(
+          tuple2(1,1), tuple2(2,2), tuple2(3,3)
+        ).equals(
+          Range.to(1,3).zip(Range.to(1,3))
+        )
+      )
+
+      assertTrue(
+        list(
+          tuple2(1,1), tuple2(2,2), tuple2(3,3)
+        ).equals(
+          Range.to(1,4).zip(Range.to(1,3))
+        )
+      )
+
+      assertTrue(
+        list(
+          tuple2(1,1), tuple2(2,2), tuple2(3,3)
+        ).equals(
+          Range.to(1,3).zip(Range.to(1,4))    
+        )
+      )
     }
 
     public function testZipWithIndex(): void {
-      assertStrictlyEquals(nil, nil.zipWithIndex)
+      assertTrue(
+        list(
+          tuple2(1,0), tuple2(2,1), tuple2(3,2)
+        ).equals(
+          Range.to(1,3).zipWithIndex
+        )
+      )
     }
 
     public function testProductArity(): void {
-      assertEquals(0, nil.productArity)
+      const n: int = 10
+      assertEquals(Range.to(1,n).size, Range.to(1,n).productArity)
+      assertEquals(Range.to(1,n+1).size, Range.to(1,n+1).productArity)
     }
 
     public function testProductElement(): void {
-      assertThrows(closure(nil.productElement, 0), IndexOutOfBoundsError)
+      const value: Object = {}
+      assertThrows(closure(list(0).productElement, 1), IndexOutOfBoundsError)
+      assertThrows(closure(list(0).productElement, -1), IndexOutOfBoundsError)
+      assertStrictlyEquals(value, list(value).productElement(0))
     }
 
     public function testProductPrefix(): void {
-      assertEquals("List", nil.productPrefix)
+      assertEquals("List", list(0).productPrefix)
     }
 
     public function testMkString(): void {
-      assertEquals("", nil.mkString("."))
+      assertEquals("1, 2, 3", list(1,2,3).mkString(", "))
     }
 
     public function testEquals(): void {
-      assertFalse(nil.equals(list(undefined)))
-      assertFalse(nil.equals(list(null)))
-      assertFalse(nil.equals(list({})))
-      assertTrue(nil.equals(nil))
-      assertTrue(nil.equals(list(1).tail))
+      assertTrue(list(undefined).equals(list(undefined)))
+      assertTrue(list(null).equals(list(null)))
+      assertFalse(list({}).equals(list({})))
+      assertTrue(list().equals(list()))
+      assertTrue(list().equals(list(1).tail))
     }
 
     public function testSize(): void {
-      assertEquals(0, nil.size)
+      const n: int = 10
+      assertEquals(0, list().size)
+      assertEquals(n, Range.to(1,n).size)
+      assertEquals(n+1, Range.to(1,n+1).size)
     }
 
     public function testHasDefinedSize(): void {
-      assertTrue(nil.hasDefinedSize)
+      assertTrue(list().hasDefinedSize)
+      assertTrue(list(1).hasDefinedSize)
     }
 
     public function testToArray(): void {
-      assertEquals(0, nil.toArray.length)
+      const n: int = 10
+      assertEquals(0, list().toArray.length)
+      assertEquals(n, Range.to(1,n).toArray.length)
+      assertEquals(n+1, Range.to(1,n+1).toArray.length)
+      assertEquals(1, list(1,2,3).toArray[0])
+      assertEquals(2, list(1,2,3).toArray[1])
+      assertEquals(3, list(1,2,3).toArray[2])
     }
 
     public function testToVector(): void {
-      assertEquals(0, nil.toVector.length)
+      const n: int = 10
+      assertEquals(0, list().toVector.length)
+      assertEquals(n, Range.to(1,n).toVector.length)
+      assertEquals(n+1, Range.to(1,n+1).toVector.length)
+      assertEquals(1, list(1,2,3).toVector[0])
+      assertEquals(2, list(1,2,3).toVector[1])
+      assertEquals(3, list(1,2,3).toVector[2])
     }
 
     public function testToFixedVector(): void {
-      assertEquals(0, nil.toFixedVector.length)
-      assertTrue(nil.toFixedVector.fixed)
+      const n: int = 10
+      assertEquals(0, list().toFixedVector.length)
+      assertEquals(n, Range.to(1,n).toFixedVector.length)
+      assertEquals(n+1, Range.to(1,n+1).toFixedVector.length)
+      assertEquals(1, list(1,2,3).toFixedVector[0])
+      assertEquals(2, list(1,2,3).toFixedVector[1])
+      assertEquals(3, list(1,2,3).toFixedVector[2])
+      assertTrue(list(1,2,3).toFixedVector.fixed)
     }
   }
 }
