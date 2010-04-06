@@ -24,11 +24,11 @@ package flashx.funk {
   import flashx.funk.util.ne
 
   public final class _ {
-    public const binaryNot: Function = function(x: *): * {
+    public static const binaryNot: Function = function(x: *): * {
       return ~x
     }
 
-    public function decrementBy(value: Number): Function {
+    public static function decrementBy(value: Number): Function {
       return function(x: Number): Number {
         return x - value
       }
