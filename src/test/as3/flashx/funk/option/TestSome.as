@@ -20,7 +20,7 @@
 
 package flashx.funk.option {
   import flashx.funk.error.IndexOutOfBoundsError
-  import flashx.funk.identity
+  import flashx.funk.test.identity
   import flashx.funk.test.assertThrows
 
   import flexunit.framework.TestCase

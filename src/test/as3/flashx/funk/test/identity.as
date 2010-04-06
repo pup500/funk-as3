@@ -18,6 +18,8 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.util {
-  public function mapTrue(value: *): Boolean { return true }
+package flashx.funk.test {
+  public function identity(x: *): * {
+    return x
+  }
 }

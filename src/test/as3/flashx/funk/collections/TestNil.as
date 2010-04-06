@@ -24,7 +24,7 @@ package flashx.funk.collections {
   import flashx.funk.closure
   import flashx.funk.error.IndexOutOfBoundsError
   import flashx.funk.error.NoSuchElementError
-  import flashx.funk.identity
+  import flashx.funk.test.identity
   import flashx.funk.option.IOption
 
   import flashx.funk.option.none
@@ -32,8 +32,8 @@ package flashx.funk.collections {
   import flashx.funk.tuple.ITuple2
 
   import flashx.funk.tuple.tuple2
-  import flashx.funk.util.mapFalse
-  import flashx.funk.util.mapTrue
+  import flashx.funk.test.mapFalse
+  import flashx.funk.test.mapTrue
 
   import flexunit.framework.TestCase
 

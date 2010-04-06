@@ -22,6 +22,8 @@ package flashx.funk {
   import flashx.funk.error.IndexOutOfBoundsError
   import flashx.funk.test.assertThrows
 
+  import flashx.funk.test.identity
+
   import flexunit.framework.TestCase
 
   public class TestLazy extends TestCase {

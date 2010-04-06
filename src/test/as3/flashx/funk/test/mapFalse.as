@@ -18,6 +18,6 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.util {
-  public function mapString(value: *): String { return "" + value }
+package flashx.funk.test {
+  public function mapFalse(value: *): Boolean { return false }
 }
