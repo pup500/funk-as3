@@ -19,5 +19,10 @@
  */
 
 package flashx.funk {
+  /**
+   * The static representation of a wildcard.
+   * 
+   * @see flashx.funk.Wildcard
+   */
   public const _: Wildcard = new Wildcard
 }

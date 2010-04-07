@@ -41,6 +41,23 @@ package flashx.funk {
       assertEquals(1, n)
     }
 
+    public function testClosureEvaluation(): void {
+      const myClass: Object = {
+        expensiveComputation: function(x: int): int {
+          assertEquals(1, x)
+          myClass.evaluated = true
+          return 2
+        },
+        evaluated: false
+      }
+
+      assertFalse(myClass.evaluated)
+      const l: ILazy = lazy(closure(_.expensiveComputation(1), myClass))
+      assertFalse(myClass.evaluated)
+      assertEquals(2, l.get)
+      assertTrue(myClass.evaluated)
+    }
+
     public function testProductArity(): void {
       assertEquals(1, lazy(identity).productArity)
     }
