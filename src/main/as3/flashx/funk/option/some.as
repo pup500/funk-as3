@@ -19,6 +19,12 @@
  */
 
 package flashx.funk.option {
+	/**
+	 * Creates and returns a defined option.
+	 * 
+	 * @param value The value of the option.
+	 * @return A defined <code>Option.&lt;A&gt;
+	 */
   public function some(value: *): IOption {
     return new SomeImpl(value)
   }
