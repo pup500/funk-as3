@@ -21,12 +21,22 @@
 package flashx.funk.ioc {
   import flashx.funk.collections.IList
   import flashx.funk.collections.nil
+  import flashx.funk.ioc.error.BindingError
+  import flashx.funk.ioc.error.IOCError
+  import flashx.funk.option.IOption
   import flashx.funk.util.isAbstract
 
   internal final class Injector {
     private static var _scopes: IList = nil
     private static var _currentScope: IModule
+    private static var _modules: IList = nil
 
+    public static function initialize(module: IModule): IModule {
+      module.initialize()
+      _modules = _modules.prepend(module)
+      return module
+    }
+    
     module_internal static function pushScope(module: IModule): void {
       _currentScope = module
       _scopes = _scopes.prepend(module)
@@ -41,11 +51,31 @@ package flashx.funk.ioc {
       return _currentScope
     }
 
-    public static function initialize(module: IModule): IModule {
-      module.initialize()
-      return module
+    module_internal static function scopeOf(klass: Class): IModule {
+      var result: IModule = null
+      var module: IModule = null
+      var modules: IList = _modules
+
+      while(modules.notEmpty) {
+        module = IModule(modules.head)
+
+        if(module.binds(klass)) {
+          if(null != result) {
+            throw new BindingError("More than one module binds "+klass+".")
+          }
+          result = IModule(modules.head)
+        }
+
+        modules = modules.tail
+      }
+
+      if(null == result) {
+        throw new BindingError("No binding for "+klass+" could be fond.")
+      }
+      
+      return result
     }
-    
+
     public function Injector() { isAbstract() }
   }
 }

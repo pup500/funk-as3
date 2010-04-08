@@ -19,13 +19,15 @@
  */
 
 package flashx.funk.ioc {
-  import flashx.funk.ioc.error.InjectionError
-
   public function inject(klass: Class): * {
+    if(klass == null) {
+      throw new ArgumentError("Given type must not be null.")
+    }
+
     const currentScope: IModule = Injector.module_internal::currentScope
 
     if(null == currentScope) {
-      throw new InjectionError("Called inject outside of module logic.")
+      return Injector.module_internal::scopeOf(klass).getInstance(klass)
     }
 
     return currentScope.getInstance(klass)

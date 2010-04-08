@@ -19,8 +19,10 @@
  */
 
 package flashx.funk.ioc {
+  import flash.display.Sprite
+
   import flashx.funk.closure
-  import flashx.funk.ioc.error.InjectionError
+  import flashx.funk.ioc.error.BindingError
   import flashx.funk.test.assertThrows
 
   import flexunit.framework.TestCase
@@ -35,7 +37,25 @@ package flashx.funk.ioc {
       assertTrue(mockObject.byObject is AnotherObject)
       assertEquals(1, SingletonInstance.numInstances)
 
-      assertThrows(closure(inject, null), InjectionError)
+      const mockObject2: MockObject = module.getInstance(MockObject)
+
+      assertEquals("Test", mockObject2.byInstance)
+      assertTrue(mockObject2.byProvider is ProvidedObject)
+      assertTrue(mockObject2.byObject is AnotherObject)
+      assertEquals(1, SingletonInstance.numInstances)
+      
+      assertFalse(mockObject.byProvider == mockObject2.byProvider)
+      assertFalse(mockObject.byObject == mockObject2.byObject)
+
+      assertThrows(closure(inject, null), ArgumentError)
+      assertThrows(closure(inject, Sprite), BindingError)
+
+      const mockObject3: MockObject = new MockObject()
+
+      assertEquals("Test", mockObject3.byInstance)
+      assertTrue(mockObject3.byProvider is ProvidedObject)
+      assertTrue(mockObject3.byObject is AnotherObject)
+      assertEquals(1, SingletonInstance.numInstances)
     }
   }
 }

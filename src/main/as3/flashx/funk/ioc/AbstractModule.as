@@ -36,6 +36,10 @@ package flashx.funk.ioc {
     }
 
     protected final function bind(klass: Class): Binding {
+      if(null != _map[klass]) {
+        throw new BindingError(klass+" is already bound.")
+      }
+      
       const binding: Binding = new Binding(this, klass)
 
       _map[klass] = binding
@@ -56,6 +60,10 @@ package flashx.funk.ioc {
       } finally {
         Injector.module_internal::popScope()
       }
+    }
+
+    public function binds(klass: Class): Boolean {
+      return _map[klass] != null
     }
   }
 }
