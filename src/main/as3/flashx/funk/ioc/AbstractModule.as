@@ -27,6 +27,9 @@ package flashx.funk.ioc {
     private const _map: Dictionary = new Dictionary(false)
     private var _initialized: Boolean = false
 
+    public function AbstractModule() {
+    }
+    
     protected function configure(): void {
     }
     

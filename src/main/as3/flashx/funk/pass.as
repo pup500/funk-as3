@@ -58,7 +58,7 @@ package flashx.funk {
       return function(): Object { return new klass }
     }
 
-    public static function klass(klass: Class): Class {
+    public static function klass(klass: Class): Function {
       return function(): Class { return klass }
     }
 
