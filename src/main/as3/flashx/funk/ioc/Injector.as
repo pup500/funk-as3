@@ -19,6 +19,8 @@
  */
 
 package flashx.funk.ioc {
+  import flash.utils.Dictionary
+
   import flashx.funk.collections.IList
   import flashx.funk.collections.nil
   import flashx.funk.ioc.error.BindingError
@@ -27,9 +29,10 @@ package flashx.funk.ioc {
   import flashx.funk.util.isAbstract
 
   internal final class Injector {
+    private static const _map: Dictionary = new Dictionary
     private static var _scopes: IList = nil
-    private static var _currentScope: IModule
     private static var _modules: IList = nil
+    private static var _currentScope: IModule
 
     public static function initialize(module: IModule): IModule {
       module.initialize()
@@ -74,6 +77,30 @@ package flashx.funk.ioc {
       }
       
       return result
+    }
+
+    module_internal static function moduleOf(klass: Class): IModule {
+      const possibleResult: IModule = _map[klass]
+
+      if(null != possibleResult) {
+        return possibleResult
+      }
+
+      var module: IModule = null
+      var modules: IList = _modules
+
+      while(modules.notEmpty) {
+        module = IModule(modules.head)
+
+        if(module is klass) {
+          _map[klass] = module
+          return module
+        }
+
+        modules = modules.tail
+      }
+
+      throw new BindingError("No module for "+klass+" could be found.")
     }
 
     public function Injector() { isAbstract() }

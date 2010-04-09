@@ -36,6 +36,17 @@ package flashx.funk.collections.immutable {
   import flashx.funk.util.verifiedType;
 
   public final class List extends Product implements IImmutable, IList {
+    public static function fill(n: int): Function {
+      return function(x: Function): IList {
+        var l: IList = nil
+
+        while(--n > -1) {
+          l = l.prepend(x())
+        }
+        
+        return l
+      }
+    }
     private var _head: *
     private var _tail: IList
     private var _length: int = 0

@@ -24,7 +24,7 @@ package flashx.funk.ioc {
   import flashx.funk.ioc.error.BindingError
 
   public class AbstractModule implements IModule {
-    private const _map: Dictionary = new Dictionary(false)
+    private const _map: Dictionary = new Dictionary
     private var _initialized: Boolean = false
 
     public function AbstractModule() {
