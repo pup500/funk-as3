@@ -21,6 +21,7 @@
 package flashx.funk.collections {
   import flashx.funk.IFunkObject
   import flashx.funk.util.isAbstract
+  import flashx.funk.util.ne
 
   public final class IteratorUtil {
     public static function eq(thisIter: IIterator, that: IFunkObject): Boolean {
@@ -34,7 +35,7 @@ package flashx.funk.collections {
           thatHasNext = thatIter.hasNext
 
           if(thisHasNext && thatHasNext) {
-            if(!eq(thisIter.next(), thatIter.next())) {
+            if(ne(thisIter.next(), thatIter.next())) {
               return false
             }
           } else if(!thisHasNext && !thatHasNext) {

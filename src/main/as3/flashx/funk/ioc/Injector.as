@@ -24,8 +24,6 @@ package flashx.funk.ioc {
   import flashx.funk.collections.IList
   import flashx.funk.collections.nil
   import flashx.funk.ioc.error.BindingError
-  import flashx.funk.ioc.error.IOCError
-  import flashx.funk.option.IOption
   import flashx.funk.util.isAbstract
 
   internal final class Injector {
