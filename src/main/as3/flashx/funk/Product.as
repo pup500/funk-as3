@@ -19,6 +19,7 @@
  */
 
 package flashx.funk {
+  import flashx.funk.collections.IIterator
   import flashx.funk.error.AbstractMethodError;
   import flashx.funk.util.isAbstract
   import flashx.funk.util.ne;
@@ -83,5 +84,9 @@ package flashx.funk {
     }
 
     protected function validateIndex(i: int): void { requireRange(i, productArity) }
+
+    public function get iterator(): IIterator {
+      return new ProductIterator(this)
+    }
   }
 }

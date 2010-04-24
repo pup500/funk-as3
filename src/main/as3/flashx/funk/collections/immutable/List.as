@@ -22,9 +22,11 @@ package flashx.funk.collections.immutable {
   import flashx.funk.IFunkObject;
   import flashx.funk.IImmutable;
   import flashx.funk.Product;
+  import flashx.funk.collections.IIterable
+  import flashx.funk.collections.IIterator
   import flashx.funk.collections.IList;
-  import flashx.funk.collections.list;
   import flashx.funk.collections.nil;
+  import flashx.funk.collections.toList
   import flashx.funk.error.NoSuchElementError;
   import flashx.funk.option.IOption;
   import flashx.funk.option.none;
@@ -36,6 +38,18 @@ package flashx.funk.collections.immutable {
   import flashx.funk.util.verifiedType;
 
   public final class List extends Product implements IImmutable, IList {
+    /**
+     * Creates and returns a closure accepting a function to fill a list
+     * with a defined amount of elements.
+     *
+     * @param n The size of the list.
+     * @return A closure to populate the list.
+     *
+     * @example
+     * <pre>
+     *   List.fill(3)(function(): Sprite { return new Sprite })
+     * </pre>
+     */
     public static function fill(n: int): Function {
       return function(x: Function): IList {
         var l: IList = nil
@@ -47,11 +61,88 @@ package flashx.funk.collections.immutable {
         return l
       }
     }
+
+    /**
+     * Creates and returns a list based on a given array.
+     *
+     * @param array The array to transform to a list.
+     * @return The List.&lt;A&gt; representation of a given Array.&lt;A&gt;.
+     */
+    public static function fromArray(array: Array): IList {
+      var l: IList = nil
+      var n: int = array.length
+
+      while(--n > -1) {
+        l = l.prepend(array[n])
+      }
+
+      return l
+    }
+
+    /**
+     * Creates and returns a list based on a given string.
+     *
+     * @param string The string to transform to a list.
+     * @return The List.&lt;String&gt; representation of a given string.
+     */
+    public static function fromString(string: String): IList {
+      var l: IList = nil
+      var n: int = string.length
+
+      while(--n > -1) {
+        l = l.prepend(string.substr(n, 1))
+      }
+
+      return l
+    }
+
+    /**
+     * Creates and returns a list based on a given vector.
+     *
+     * @param vector The array to transform to a list.
+     * @return The List.&lt;A&gt; representation of a given Vector.&lt;A&gt;
+     */
+    public static function fromVector(vector: Vector.<*>): IList {
+      var l: IList = nil
+      var n: int = vector.length
+
+      while(--n > -1) {
+        l = l.prepend(vector[n])
+      }
+
+      return l
+    }
+
+    /**
+     * Private backing variable for the head property.
+     * @private
+     */
     private var _head: *
+
+    /**
+     * Private backing variable for the tail property.
+     * @private
+     */
     private var _tail: IList
+
+    /**
+     * Private backing variable for the length property.
+     * @private
+     */
     private var _length: int = 0
+
+    /**
+     * Whether or not the length has already been computed once.
+     * @private
+     */
     private var _lengthKnown: Boolean = false
 
+    /**
+     * Creates and returns a new List object.
+     *
+     * @param head The head of the list.
+     * @param tail The tail of the list.
+     */
     public function List(head: *, tail: IList) {
       _head = head
       _tail = tail
@@ -76,7 +167,7 @@ package flashx.funk.collections.immutable {
       var p: IList = this
       var length: int = 0
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         ++length;
         p = p.tail
       }
@@ -97,7 +188,7 @@ package flashx.funk.collections.immutable {
     /**
      * @inheritDoc
      */
-    override public function equals(that:IFunkObject): Boolean {
+    override public function equals(that: IFunkObject): Boolean {
       if (that is IList) {
         return super.equals(that)
       }
@@ -120,7 +211,7 @@ package flashx.funk.collections.immutable {
 
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(i == 0) {
           return p.head
         }
@@ -163,7 +254,7 @@ package flashx.funk.collections.immutable {
 
       i = 0
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         buffer[i++] = new List(p.head, null)
         p = p.tail
       }
@@ -190,7 +281,7 @@ package flashx.funk.collections.immutable {
     public function contains(value: *): Boolean {
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(eq(p.head, value)) {
           return true
         }
@@ -207,7 +298,7 @@ package flashx.funk.collections.immutable {
       var n: int = 0
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(f(p.head)) {
           ++n
         }
@@ -221,7 +312,7 @@ package flashx.funk.collections.immutable {
     /**
      * @inheritDoc
      */
-    public function get notEmpty(): Boolean {
+    public function get nonEmpty(): Boolean {
       return true
     }
 
@@ -285,7 +376,7 @@ package flashx.funk.collections.immutable {
     public function dropWhile(f: Function): IList {
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(!f(p.head)) {
           return p
         }
@@ -302,7 +393,7 @@ package flashx.funk.collections.immutable {
     public function exists(f: Function): Boolean {
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(f(p.head)) {
           return true
         }
@@ -323,7 +414,7 @@ package flashx.funk.collections.immutable {
       var last: List = null
       var allFiltered: Boolean = true;
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(f(p.head)) {
           q = new List(p.head, nil)
 
@@ -360,7 +451,7 @@ package flashx.funk.collections.immutable {
       var last: List = null
       var allFiltered: Boolean = true;
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(!f(p.head)) {
           q = new List(p.head, nil)
 
@@ -393,7 +484,7 @@ package flashx.funk.collections.immutable {
     public function find(f: Function): IOption {
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(f(p.head)) {
           return some(p.head)
         }
@@ -413,7 +504,7 @@ package flashx.funk.collections.immutable {
       var p: IList = this
       var i: int
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         buffer[i++] = IList(verifiedType(f(p.head), IList))
         p = p.tail
       }
@@ -434,7 +525,7 @@ package flashx.funk.collections.immutable {
       var value: * = x
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         value = f(value, p.head)
         p = p.tail
       }
@@ -463,7 +554,7 @@ package flashx.funk.collections.immutable {
     public function forall(f: Function): Boolean {
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(!f(p.head)) {
           return false
         }
@@ -480,7 +571,7 @@ package flashx.funk.collections.immutable {
     public function foreach(f: Function): void {
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         f(p.head)
         p = p.tail
       }
@@ -534,7 +625,7 @@ package flashx.funk.collections.immutable {
     public function get last(): * {
       var p: IList = this
       var value: * = null
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         value = p.head
         p = p.tail
       }
@@ -581,7 +672,7 @@ package flashx.funk.collections.immutable {
 
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(f(p.head)) {
           left[i++] = new List(p.head, nil)
         } else {
@@ -616,7 +707,7 @@ package flashx.funk.collections.immutable {
       var value: * = head
       var p: IList = this._tail
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         value = f(value, p.head)
         p = p.tail
       }
@@ -646,7 +737,7 @@ package flashx.funk.collections.immutable {
       var result: IList = nil
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         result = result.prepend(p.head)
         p = p.tail
       }
@@ -735,7 +826,7 @@ package flashx.funk.collections.immutable {
       var i: int, j: int
       var n: int = 0
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(f(p)) {
           buffer[n++] = new List(p.head, null)
           p = p.tail
@@ -865,7 +956,7 @@ package flashx.funk.collections.immutable {
       var index: int = 0
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(f(p.head)) {
           return index
         }
@@ -881,7 +972,7 @@ package flashx.funk.collections.immutable {
      * @inheritDoc
      */
     public function get flatten(): IList {
-      return flatMap(function(x: *): IList { return x is IList ? x : list(x) })
+      return flatMap(function(x: *): IList { return x is IList ? x : toList(x) })
     }
 
     /**
@@ -891,7 +982,7 @@ package flashx.funk.collections.immutable {
       var index: int = 0
       var p: IList = this
 
-      while(p.notEmpty) {
+      while(p.nonEmpty) {
         if(eq(p.head, value)) {
           return index
         }
@@ -925,6 +1016,74 @@ package flashx.funk.collections.immutable {
       }
 
       return buffer
+    }
+
+    /**
+     * @inheritDoc
+     */
+    override public function get iterator(): IIterator {
+      return new ListIterator(this)
+    }
+
+    public function append(value: *): IList {
+      const n: int = size
+      const buffer: Vector.<List> = new Vector.<List>(n+1, true)
+      var p: IList = this
+      var i: int, j: int
+
+      i = 0
+
+      while(p.nonEmpty) {
+        buffer[i++] = new List(p.head, null)
+        p = p.tail
+      }
+
+      buffer[n] = new List(value, nil)
+
+      for(i = 0, j = 1; i < n; ++i, ++j) {
+        buffer[i]._tail = buffer[j]
+      }
+
+      return buffer[0]
+    }
+
+    public function appendAll(value: IList): IList {
+      const n: int = size
+      const m: int = n - 1
+      const buffer: Vector.<List> = new Vector.<List>(n, true)
+      var p: IList = this
+      var i: int, j: int
+
+      i = 0
+
+      while(p.nonEmpty) {
+        buffer[i++] = new List(p.head, null)
+        p = p.tail
+      }
+
+      buffer[m]._tail = value
+
+      for(i = 0, j = 1; i < m; ++i, ++j) {
+        buffer[i]._tail = buffer[j]
+      }
+
+      return buffer[0]
+    }
+
+    public function prependIterator(iterator: IIterator): IList {
+      return prependAll(iterator.toList)
+    }
+
+    public function appendIterator(iterator: IIterator): IList {
+      return appendAll(iterator.toList)
+    }
+
+    public function prependIterable(iterable: IIterable): IList {
+      return prependAll(iterable.iterator.toList)
+    }
+
+    public function appendIterable(iterable: IIterable): IList {
+      return appendAll(iterable.iterator.toList)
     }
   }
 }

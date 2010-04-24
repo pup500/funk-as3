@@ -46,7 +46,7 @@ package flashx.funk.collections {
 		/**
 		 * Whether or not the list is populated.
 		 */
-    function get notEmpty(): Boolean
+    function get nonEmpty(): Boolean
 
 		/**
 		 * Drop <code>n</code> elements form the list and return the suffix.
@@ -242,6 +242,18 @@ package flashx.funk.collections {
     function prepend(value: *): IList
 
     function prependAll(value: IList): IList
+
+    function prependIterator(iterator: IIterator): IList
+
+    function prependIterable(iterable: IIterable): IList
+
+    function append(value: *): IList
+
+    function appendAll(value: IList): IList
+    
+    function appendIterator(iterator: IIterator): IList
+
+    function appendIterable(iterable: IIterable): IList
 
     /**
      *

@@ -52,9 +52,9 @@ package flashx.funk.collections.immutable {
     }
 
     public function testNotEmpty(): void {
-      assertTrue(list(1).notEmpty)
-      assertTrue(list(1, 2).notEmpty)
-      assertFalse(list().notEmpty)
+      assertTrue(list(1).nonEmpty)
+      assertTrue(list(1, 2).nonEmpty)
+      assertFalse(list().nonEmpty)
     }
 
     public function testDrop(): void {

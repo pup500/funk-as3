@@ -44,7 +44,7 @@ package flashx.funk.collections {
     }
 
     public function testNotEmpty(): void {
-      assertFalse(nil.notEmpty)
+      assertFalse(nil.nonEmpty)
     }
 
     public function testDrop(): void {

@@ -47,7 +47,7 @@ package flashx.funk.ioc {
 
     module_internal static function popScope(): void {
       _scopes = _scopes.tail
-      _currentScope = _scopes.notEmpty ? IModule(_scopes.head) : null
+      _currentScope = _scopes.nonEmpty ? IModule(_scopes.head) : null
     }
 
     module_internal static function get currentScope(): IModule {
@@ -59,7 +59,7 @@ package flashx.funk.ioc {
       var module: IModule = null
       var modules: IList = _modules
 
-      while(modules.notEmpty) {
+      while(modules.nonEmpty) {
         module = IModule(modules.head)
 
         if(module.binds(klass)) {
@@ -89,7 +89,7 @@ package flashx.funk.ioc {
       var module: IModule = null
       var modules: IList = _modules
 
-      while(modules.notEmpty) {
+      while(modules.nonEmpty) {
         module = IModule(modules.head)
 
         if(module is klass) {
@@ -103,6 +103,6 @@ package flashx.funk.ioc {
       throw new BindingError("No module for "+klass+" could be found.")
     }
 
-    public function Injector() { isAbstract() }
+    [Abstract] public function Injector() { isAbstract() }
   }
 }

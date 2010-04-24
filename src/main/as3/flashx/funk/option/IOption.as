@@ -21,6 +21,7 @@
 package flashx.funk.option {
   import flashx.funk.IFunkObject
 	import flashx.funk.IProduct;
+  import flashx.funk.collections.IIterable
 
   /**
    * The IOption.&lt;A&gt; interface defines the option type.
