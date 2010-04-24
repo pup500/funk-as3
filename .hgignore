@@ -1,0 +1,8 @@
+syntax: glob
+
+target
+funk.iml
+funk.iws
+funk.ipr
+funk_temp_flexunit_config.xml
+funk_temp_flex_main_class_config.xml
