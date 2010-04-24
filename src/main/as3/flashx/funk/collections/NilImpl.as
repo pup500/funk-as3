@@ -383,5 +383,33 @@ package flashx.funk.collections {
     public function get length(): int {
       return 0
     }
+
+    public function prependIterator(iterator: IIterator): IList {
+      return iterator.toList
+    }
+
+    public function prependIterable(iterable: IIterable): IList {
+      return iterable.iterator.toList
+    }
+
+    public function append(value: *): IList {
+      return new List(value, this)
+    }
+
+    public function appendAll(value: IList): IList {
+      return value
+    }
+
+    public function appendIterator(iterator: IIterator): IList {
+      return iterator.toList
+    }
+
+    public function appendIterable(iterable: IIterable): IList {
+      return iterable.iterator.toList
+    }
+
+    override public function get iterator(): IIterator {
+      return NilIterator.INSTANCE
+    }
   }
 }
