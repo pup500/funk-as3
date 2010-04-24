@@ -374,5 +374,58 @@ package flashx.funk.collections.immutable {
       assertEquals(3, list(1, 2, 3).toFixedVector[2])
       assertTrue(list(1, 2, 3).toFixedVector.fixed)
     }
+
+    public function testAppend(): void {
+      const l: IList = list(1)
+      assertTrue(list(1,2,3).equals(list(1,2).append(3)))
+      assertTrue(l.size < l.append(null).size)
+      assertTrue(list(1,2,nil).equals(list(1,2).append(nil)))
+    }
+
+    public function testAppendAll(): void {
+      const l0: IList = list(1,2,3)
+      const l1: IList = list(4,5,6)
+
+      assertTrue(list(1,2,3,4,5,6).equals(l0.appendAll(l1)))
+      assertTrue(l0.equals(l0.appendAll(nil)))
+    }
+
+    public function testIterator(): void {
+      assertNotNull(list(1).iterator)
+      assertTrue(list(1).iterator.hasNext)
+      assertEquals(1, list(1).iterator.next())
+    }
+
+    public function testAppendIterable(): void {
+      const l0: IList = list(1,2,3)
+      const l1: IList = list(4,5,6)
+
+      assertTrue(list(1,2,3,4,5,6).equals(l0.appendIterable(l1)))
+      assertTrue(l0.equals(l0.appendIterable(nil)))
+    }
+
+    public function testAppendIterator(): void {
+      const l0: IList = list(1,2,3)
+      const l1: IList = list(4,5,6)
+
+      assertTrue(list(1,2,3,4,5,6).equals(l0.appendIterator(l1.iterator)))
+      assertTrue(l0.equals(l0.appendIterator(nil.iterator)))
+    }
+
+    public function testPrependIterable(): void {
+      const l0: IList = list(1,2,3)
+      const l1: IList = list(4,5,6)
+
+      assertTrue(list(4,5,6,1,2,3).equals(l0.prependIterable(l1)))
+      assertTrue(l0.equals(l0.prependIterable(nil)))
+    }
+
+    public function testPrependIterator(): void {
+      const l0: IList = list(1,2,3)
+      const l1: IList = list(4,5,6)
+
+      assertTrue(list(4,5,6,1,2,3).equals(l0.prependIterator(l1.iterator)))
+      assertTrue(l0.equals(l0.prependIterator(nil.iterator)))
+    }
   }
 }
