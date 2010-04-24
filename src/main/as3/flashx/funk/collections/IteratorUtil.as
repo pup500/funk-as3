@@ -20,6 +20,7 @@
 
 package flashx.funk.collections {
   import flashx.funk.IFunkObject
+  import flashx.funk.util.isAbstract
 
   public final class IteratorUtil {
     public static function eq(thisIter: IIterator, that: IFunkObject): Boolean {
@@ -78,5 +79,7 @@ package flashx.funk.collections {
 
       return l.reverse
     }
+
+    [Abstract] public function IteratorUtil() { isAbstract() }
   }
 }

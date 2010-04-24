@@ -1025,6 +1025,9 @@ package flashx.funk.collections.immutable {
       return new ListIterator(this)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function append(value: *): IList {
       const n: int = size
       const buffer: Vector.<List> = new Vector.<List>(n+1, true)
@@ -1047,6 +1050,9 @@ package flashx.funk.collections.immutable {
       return buffer[0]
     }
 
+    /**
+     * @inheritDoc
+     */
     public function appendAll(value: IList): IList {
       const n: int = size
       const m: int = n - 1
@@ -1070,18 +1076,30 @@ package flashx.funk.collections.immutable {
       return buffer[0]
     }
 
+    /**
+     * @inheritDoc
+     */
     public function prependIterator(iterator: IIterator): IList {
       return prependAll(iterator.toList)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function appendIterator(iterator: IIterator): IList {
       return appendAll(iterator.toList)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function prependIterable(iterable: IIterable): IList {
       return prependAll(iterable.iterator.toList)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function appendIterable(iterable: IIterable): IList {
       return appendAll(iterable.iterator.toList)
     }
