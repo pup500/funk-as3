@@ -29,10 +29,9 @@ package flashx.funk.collections.immutable {
   import flashx.funk.option.IOption
   import flashx.funk.option.none
   import flashx.funk.option.some
-  import flashx.funk.util.eq
 
   /**
-   * The ListIterator class is the companion iterator implementaion
+   * The ListIterator class is the companion iterator implementation
    * for the List class.
    * 
    * @private
@@ -98,17 +97,26 @@ package flashx.funk.collections.immutable {
      * @inheritDoc
      */
     public function toString(): String {
-      return '[ListIterator]'
+      return "[ListIterator]"
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get toArray(): Array {
       return IteratorUtil.toArray(this)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get toVector(): Vector.<*> {
       return IteratorUtil.toVector(this)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get toList(): IList {
       return IteratorUtil.toList(this)
     }

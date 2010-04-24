@@ -36,6 +36,9 @@ package flashx.funk {
       _arity = product.productArity
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get hasNext(): Boolean {
       return _index < _arity
     }
@@ -44,6 +47,9 @@ package flashx.funk {
       return _product.productElement(_index++)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get nextOption(): IOption {
       if(_index < _arity) {
         return some(_product.productElement(_index++))
@@ -52,20 +58,39 @@ package flashx.funk {
       }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function equals(that: IFunkObject): Boolean {
       return IteratorUtil.eq(this, that)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get toArray(): Array {
       return IteratorUtil.toArray(this)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get toVector(): Vector.<*> {
       return IteratorUtil.toVector(this)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get toList(): IList {
       return IteratorUtil.toList(this)
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toString(): String {
+      return "[ProductIterator]"
     }
   }
 }
