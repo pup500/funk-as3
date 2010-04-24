@@ -275,6 +275,13 @@ package flashx.funk {
     public const toUpperCase: Function = function(x: *): String {
       return x is String ? String(x).toUpperCase() : ("" + x).toUpperCase()
     }
+    
+    /**
+     * The function <code>f</code> with <code>f(x) = toList(x)</code>.
+     */
+    public const toList: Function = function(x: *): String {
+      return toList(x)
+    }
 
     /**
      * The function <code>f</code> with <code>f(x, y) = x + y</code>.
