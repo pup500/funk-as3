@@ -355,5 +355,7 @@ package flashx.funk {
      * The function <code>f</code> with <code>f(x, y) = x ^ y</code>.
      */
     public const binaryXor_: Function = function(a: *, b: *): * { return a ^ b }
+
+    public function Wildcard() {}
   }
 }

@@ -22,7 +22,6 @@ package flashx.funk.collections {
   import flashx.funk.IImmutable
   import flashx.funk.Product
   import flashx.funk.collections.immutable.List
-  import flashx.funk.error.IndexOutOfBoundsError
   import flashx.funk.error.NoSuchElementError
   import flashx.funk.option.IOption
   import flashx.funk.option.none
@@ -141,7 +140,7 @@ package flashx.funk.collections {
      * @inheritDoc
      */
     public function get (index: int): * {
-      throw new IndexOutOfBoundsError()
+      throw new RangeError()
     }
 
     /**
@@ -353,7 +352,7 @@ package flashx.funk.collections {
      * @inheritDoc
      */
     override public function productElement(i: int): * {
-      throw new IndexOutOfBoundsError()
+      throw new RangeError()
     }
 
     /**

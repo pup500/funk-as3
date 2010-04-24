@@ -20,8 +20,6 @@
 
 package flashx.funk.tuple {
   import flashx.funk.Product;
-  import flashx.funk.collections.IList;
-  import flashx.funk.error.IndexOutOfBoundsError;
 
   internal final class Tuple1Impl extends Product implements ITuple1 {
     private var __1: *
@@ -39,7 +37,7 @@ package flashx.funk.tuple {
     override public function productElement(i: int): * {
       switch(i) {
         case 0: return __1
-        default: throw new IndexOutOfBoundsError()
+        default: throw new RangeError()
       }
     }
   }

@@ -21,7 +21,6 @@
 package flashx.funk.option {
   import flashx.funk.IFunkObject
   import flashx.funk.Product;
-  import flashx.funk.error.IndexOutOfBoundsError;
   import flashx.funk.util.eq
   import flashx.funk.util.verifiedType;
 
@@ -101,7 +100,7 @@ package flashx.funk.option {
     override public function productElement(i: int): * {
       if(i == 0)
         return get
-      throw new IndexOutOfBoundsError()
+      throw new RangeError()
     }
 
 		/**

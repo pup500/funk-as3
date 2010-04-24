@@ -21,7 +21,6 @@
 package flashx.funk.collections {
   import flashx.funk._
   import flashx.funk.closure
-  import flashx.funk.error.IndexOutOfBoundsError
   import flashx.funk.error.NoSuchElementError
   import flashx.funk.option.none
   import flashx.funk.test.assertThrows
@@ -149,7 +148,7 @@ package flashx.funk.collections {
     }
 
     public function testGet(): void {
-      assertThrows(closure(nil.get, 0), IndexOutOfBoundsError)
+      assertThrows(closure(nil.get, 0), RangeError)
     }
 
     public function testHead(): void {
@@ -270,7 +269,7 @@ package flashx.funk.collections {
     }
 
     public function testProductElement(): void {
-      assertThrows(closure(nil.productElement, 0), IndexOutOfBoundsError)
+      assertThrows(closure(nil.productElement, 0), RangeError)
     }
 
     public function testProductPrefix(): void {

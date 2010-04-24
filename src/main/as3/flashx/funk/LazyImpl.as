@@ -19,7 +19,6 @@
  */
 
 package flashx.funk {
-  import flashx.funk.error.IndexOutOfBoundsError
 
   internal final class LazyImpl extends Product implements ILazy {
     private var _f: Function
@@ -57,7 +56,7 @@ package flashx.funk {
         return get
       }
 
-      throw new IndexOutOfBoundsError()
+      throw new RangeError("Index " + i + " is out of bounds.")
     }
 
     /**

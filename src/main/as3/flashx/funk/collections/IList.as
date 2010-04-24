@@ -50,7 +50,7 @@ package flashx.funk.collections {
 
 		/**
 		 * Drop <code>n</code> elements form the list and return the suffix.
-		 * 
+		 *
 		 * @param n The number of elements to drop.
 		 * @return The resulting suffix of type IList.&lt;A&gt;.
 		 */
@@ -82,7 +82,7 @@ package flashx.funk.collections {
 
     /**
      * Filter and return all elements that fulfill <code>f</code>.
-		 * 
+		 *
      * @param f The predicate <code>A → Boolean</code>
      * @return A list IList.&lt;A&gt; of all elements that fulfill the predicate <code>f</code>
      */
@@ -184,7 +184,7 @@ package flashx.funk.collections {
      * Find and return the index of the first element equal to the given value.
 		 *
 		 * The equality test is done by value comparison; not by reference.
-		 * 
+		 *
      * @param value The element to search for
      * @return The index of the first element equal to <code>value</code>; -1 if no such element exists.
      */
@@ -245,14 +245,14 @@ package flashx.funk.collections {
 
     /**
      *
-     * @param f (A, A) => B
+     * @param f (A, A) =&gt; B
      * @return B
      */
     function reduceLeft(f: Function): *
 
     /**
      *
-     * @param f (A, A) => B
+     * @param f (A, A) =&gt; B
      * @return B
      */
     function reduceRight(f: Function): *
@@ -269,8 +269,8 @@ package flashx.funk.collections {
 
     /**
      *
-     * @param f A => Boolean
-     * @return list.<A>
+     * @param f A =&gt; Boolean
+     * @return list.&lt;A&gt;
      */
     function takeWhile(f: Function): IList
 

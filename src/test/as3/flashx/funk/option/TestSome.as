@@ -19,7 +19,6 @@
  */
 
 package flashx.funk.option {
-  import flashx.funk.error.IndexOutOfBoundsError
   import flashx.funk.test.identity
   import flashx.funk.test.assertThrows
 
@@ -119,7 +118,7 @@ package flashx.funk.option {
       assertStrictlyEquals(value, some(value).productElement(0))
       assertThrows(function(): void {
         some(value).productElement(1)
-      }, IndexOutOfBoundsError)
+      }, RangeError)
     }
 
     public function testProductPrefix(): void {

@@ -26,7 +26,6 @@ package flashx.funk.collections.immutable {
   import flashx.funk.collections.list
   import flashx.funk.collections.nil
   import flashx.funk.collections.toList
-  import flashx.funk.error.IndexOutOfBoundsError
   import flashx.funk.option.none
   import flashx.funk.option.some
   import flashx.funk.test.assertThrows
@@ -168,8 +167,8 @@ package flashx.funk.collections.immutable {
         assertEquals(x._1, Range.until(0, 10).get(x._2))
       })
 
-      assertThrows(closure(Range.until(0, 10).get, -1), IndexOutOfBoundsError)
-      assertThrows(closure(Range.until(0, 10).get, 10), IndexOutOfBoundsError)
+      assertThrows(closure(Range.until(0, 10).get, -1), RangeError)
+      assertThrows(closure(Range.until(0, 10).get, 10), RangeError)
     }
 
     public function testHead(): void {
@@ -312,8 +311,8 @@ package flashx.funk.collections.immutable {
 
     public function testProductElement(): void {
       const value: Object = {}
-      assertThrows(closure(list(0).productElement, 1), IndexOutOfBoundsError)
-      assertThrows(closure(list(0).productElement, -1), IndexOutOfBoundsError)
+      assertThrows(closure(list(0).productElement, 1), RangeError)
+      assertThrows(closure(list(0).productElement, -1), RangeError)
       assertStrictlyEquals(value, list(value).productElement(0))
     }
 

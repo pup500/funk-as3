@@ -54,5 +54,28 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.flexmojos</groupId>
+        <artifactId>flexmojos-maven-plugin</artifactId>
+        <version>4.0-SNAPSHOT</version>
+        <reportSets>
+          <reportSet>
+            <id>flex-reports</id>
+            <reports>
+              <report>asdoc-report</report>
+            </reports>
+            <configuration>
+              <windowTitle>Funk Documentation</windowTitle>
+			  <mainTitle>Funk Documentation</mainTitle>
+              <footer>http://funk-as3.googlecode.com/</footer>
+            </configuration>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>

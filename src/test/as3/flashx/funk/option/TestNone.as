@@ -20,7 +20,6 @@
 
 package flashx.funk.option {
   import flashx.funk.closure
-  import flashx.funk.error.IndexOutOfBoundsError;
   import flashx.funk.error.NoSuchElementError;
   import flashx.funk.test.assertThrows;
 
@@ -90,7 +89,7 @@ package flashx.funk.option {
     }
 
     public function testProductElement(): void {
-      assertThrows(closure(none.productElement, 0), IndexOutOfBoundsError)
+      assertThrows(closure(none.productElement, 0), RangeError)
     }
 
     public function testProductPrefix(): void {
