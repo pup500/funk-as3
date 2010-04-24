@@ -384,30 +384,51 @@ package flashx.funk.collections {
       return 0
     }
 
+    /**
+     * @inheritDoc
+     */
     public function prependIterator(iterator: IIterator): IList {
       return iterator.toList
     }
 
+    /**
+     * @inheritDoc
+     */
     public function prependIterable(iterable: IIterable): IList {
       return iterable.iterator.toList
     }
 
+    /**
+     * @inheritDoc
+     */
     public function append(value: *): IList {
       return new List(value, this)
     }
 
+    /**
+     * @inheritDoc
+     */
     public function appendAll(value: IList): IList {
       return value
     }
 
+    /**
+     * @inheritDoc
+     */
     public function appendIterator(iterator: IIterator): IList {
       return iterator.toList
     }
 
+    /**
+     * @inheritDoc
+     */
     public function appendIterable(iterable: IIterable): IList {
       return iterable.iterator.toList
     }
 
+    /**
+     * @inheritDoc
+     */
     override public function get iterator(): IIterator {
       return NilIterator.INSTANCE
     }
