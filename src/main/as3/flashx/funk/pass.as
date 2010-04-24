@@ -62,6 +62,6 @@ package flashx.funk {
       return function(): Class { return klass }
     }
 
-    public function pass() { isAbstract() }
+    [Abstract] public function pass() { isAbstract() }
   }
 }

@@ -19,7 +19,9 @@
  */
 
 package flashx.funk {
-	public interface IProduct extends IImmutable, IFunkObject {
+  import flashx.funk.collections.IIterable
+
+  public interface IProduct extends IImmutable, IFunkObject, IIterable {
 		function get productArity(): int
 
 		function productElement(i: int): *

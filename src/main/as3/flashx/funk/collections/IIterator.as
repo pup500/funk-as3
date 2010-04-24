@@ -18,10 +18,17 @@
  * http://www.joa-ebert.com/
  */
 
-package flashx.funk.error {
-  public class IndexOutOfBoundsError extends Error {
-    public function IndexOutOfBoundsError() {
-      super()
-    }
+package flashx.funk.collections {
+  import flashx.funk.IFunkObject
+  import flashx.funk.option.IOption
+
+  public interface IIterator extends IFunkObject {
+    function get hasNext(): Boolean
+    function next(): *
+    function get nextOption(): IOption
+
+    function get toArray(): Array
+    function get toVector(): Vector.<*>
+    function get toList(): IList
   }
 }

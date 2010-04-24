@@ -47,7 +47,7 @@ package flashx.funk.collections {
     /**
      * @inheritDoc
      */
-    public function get notEmpty(): Boolean {
+    public function get nonEmpty(): Boolean {
       return false
     }
 
