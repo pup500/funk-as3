@@ -28,7 +28,7 @@ package flashx.funk.ioc {
   import flashx.funk.option.IOption
   import flashx.funk.util.isAbstract
 
-  internal final class Injector {
+  public final class Injector {
     private static const _map: Dictionary = new Dictionary
     private static var _scopes: IList = nil
     private static var _modules: IList = nil
