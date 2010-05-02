@@ -24,7 +24,7 @@
   <packaging>swc</packaging>
 
   <name>funk</name>
-
+  
   <build>
     <sourceDirectory>src/main/as3</sourceDirectory>
     <testSourceDirectory>src/test/as3</testSourceDirectory>
@@ -34,6 +34,10 @@
         <artifactId>flexmojos-maven-plugin</artifactId>
         <version>4.0-SNAPSHOT</version>
         <extensions>true</extensions>
+		<configuration>
+          <coverage>true</coverage>
+		  <coverageProvider>cobertura</coverageProvider>
+        </configuration>
       </plugin>
     </plugins>
   </build>
