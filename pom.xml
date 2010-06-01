@@ -25,6 +25,12 @@
 
   <name>funk</name>
   
+  <scm>
+    <connection>http://funk-as3.googlecode.com/hg/</connection>
+    <developerConnection>https://funk-as3.googlecode.com/hg/</developerConnection>
+    <url>http://code.google.com/p/funk-as3/source/browse/</url>
+  </scm>
+  
   <build>
     <sourceDirectory>src/main/as3</sourceDirectory>
     <testSourceDirectory>src/test/as3</testSourceDirectory>
